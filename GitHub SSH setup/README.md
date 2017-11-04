@@ -75,8 +75,3 @@ $ git remote show origin
 
 . [Connecting to GitHub with SSH (GitHub Help)](https://help.github.com/articles/connecting-to-github-with-ssh/)  
 . [Superuser: How to tell git which private key to use?](https://superuser.com/questions/232373/how-to-tell-git-which-private-key-to-use)
-
-## LICENSE
-
-MIT, Copyright (c) 2017 Ronald Stalder @ronalstal.gmail.com  
-See [LICENSE.txt](LICENSE.txt)
