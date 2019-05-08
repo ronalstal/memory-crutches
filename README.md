@@ -1,8 +1,8 @@
 # Memory Crutches
 
-#### [GitHub SSH setup](GitHub SSH setup/README.md)
+#### [GitHub SSH setup](<GitHub\ SSH\ setup/README.md>)
 
-#### [Manjaro VBox guest setup](Manjaro VBox guest setup/README.md)
+#### [Manjaro VBox guest setup](<Manjaro\ VBox\ guest\ setup/README.md>)
 
 ## LICENSE
 
