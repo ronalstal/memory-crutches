@@ -2,77 +2,36 @@
 
 ### 2019-05-08
 
-#### Get SSH keys
+#### Install Guest Additions
 
 ```
-ssh-keygen -t rsa -b 4096 -C "ronalstal@gmail.com"
-# run ssh agent server in background and add the key
-# (no passphrase used)
-eval "$(ssh-agent -s)"
-ssh-add id_rsa
-# copy the public key to the clipboard
 xclip -sel clip < ~/.ssh/id_rsa.pub
 ```
 
-#### insert the keys in [GitHub Account Keys Settings](https://github.com/settings/keys)
+#### Setup Shared Folders
 
-#### configure git
+**On the host** add the folder to the VB configuration for the machine:
 
-```
-# testing the SSH connection
-ssh -T git@github.com
-# -> Hi ronalstal! You've successfully authenticated, but GitHub does not provide shell access
-```
+- chose the host directory to share
+- enter a name which will be the mount name on the guest
+- do **not** enable auto-mount, but enable _Make Permanent_
+- leave the mount point blank
 
-Edit `~/.ssh/config`:
+**Then start the guest** and:
 
-```
-Host github.com
-  User git
-  Hostname github.com
-  IdentityFile ~/.ssh/id_rsa
-```
+- in the home directory create the folders to be mounted. Their names do not need to match the mount names from above
+- `sudo vi /etc/fstab` to add the mounts:  
+  `mount-name /home/ronald/folder vboxsf uid=1000,gid=1000 0 0`  
+  where _folder_ is the name of the folder to be mounted from above
+- reboot the guest
 
-where the IdentityFile is the private key file created above.
-
-In your projects, change the FETCH and PUSH urls:
+#### Setup Window Resolution - Frame Size
 
 ```
-$ git remote show origin
->> * remote origin
->>  Fetch URL: https://github.com/ronalstal/memory-crutches.git
->>  Push  URL: https://github.com/ronalstal/memory-crutches.git
->>  HEAD branch: (unknown)
->>  Local branch configured for 'git pull':
->>    master merges with remote master
-
-# change https to ssh in the git config editor:
-$ git config -e
-
-$ cat .git/config
->> [core]
->> 	repositoryformatversion = 0
->> 	filemode = true
->> 	bare = false
->> 	logallrefupdates = true
->> [remote "origin"]
->> 	url = ssh://github.com/ronalstal/memory-crutches.git
->> 	fetch = +refs/heads/*:refs/remotes/origin/*
->> [branch "master"]
->> 	remote = origin
->> 	merge = refs/heads/master
-
-$ git remote show origin
->> * remote origin
->>   Fetch URL: ssh://github.com/ronalstal/memory-crutches.git
->>   Push  URL: ssh://github.com/ronalstal/memory-crutches.git
->>   HEAD branch: (unknown)
->>   Local branch configured for 'git pull':
->>     master merges with remote master
-
+xclip -sel clip < ~/.ssh/id_rsa.pub
 ```
 
 #### documentation
 
-. [Connecting to GitHub with SSH (GitHub Help)](https://help.github.com/articles/connecting-to-github-with-ssh/)  
-. [Superuser: How to tell git which private key to use?](https://superuser.com/questions/232373/how-to-tell-git-which-private-key-to-use)
+- [Installing Guest Additons (Arch Wiki)](https://wiki.archlinux.org/index.php/VirtualBox#Installation_steps_for_Arch_Linux_guests)
+- [Setting Up VirtualBox Shared Folders (Josh Braun’s Blog)](http://wideaperture.net/blog/?p=4034)
